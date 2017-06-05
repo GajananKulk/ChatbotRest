@@ -3,7 +3,7 @@ package com.chatbox.bussiness;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -17,11 +17,13 @@ public class Validate_Data_Excel
 {
 	public String getBalance(int c_no)throws IOException
 	{
-		System.out.println(c_no);
+		/*System.out.println(c_no);
 		File excel = new File("BankData.xls");
 	        FileInputStream fis = new FileInputStream(excel);
-	               
-	        HSSFWorkbook wb = new HSSFWorkbook(fis);
+	           */
+		InputStream stream = Validate_Data_Excel.class.getResourceAsStream("/BankData.xls");
+	        //HSSFWorkbook wb = new HSSFWorkbook(fis);
+		HSSFWorkbook wb = new HSSFWorkbook(stream);
 	        HSSFSheet ws = wb.getSheetAt(0);
 
 	        int rowNum = ws.getLastRowNum() + 1;
