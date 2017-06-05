@@ -48,8 +48,9 @@ public Response getbal(String outputJSON) throws IOException{
 		System.out.println("Current Balance:-"+bal);
 		Response_Mdl res=new Response_Mdl();
 		res.setSource("policyWS");
-		String str1="Your Balance is"+bal;
+		String str1="Your Balance is "+bal;
 		res.setSpeech(str1);
+	        res.setDisplayText(str1);
 		ObjectMapper om=new ObjectMapper();
 		String str2=om.writeValueAsString(res);
 	return Response.status(200).entity(str2).header("Content-Type", "application/json").build();
