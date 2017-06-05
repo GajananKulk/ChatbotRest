@@ -47,7 +47,7 @@ public Response getbal(String outputJSON) throws IOException{
 		String bal= v.getBalance(card_no);
 		System.out.println("Current Balance:-"+bal);
 		Response_Mdl res=new Response_Mdl();
-		res.setSource("policyWS");
+		res.setSource("webhook");
 		String str1="Your Balance is "+bal;
 		res.setSpeech(str1);
 	        res.setDisplayText(str1);
