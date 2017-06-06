@@ -81,7 +81,6 @@ public class Validate_Data_Excel
 		
 		
             
-            System.out.println("Balance :="+bal);
             /*if (!matchFound) {
 	            System.out.println("Sorry...!! You Entered wrong card number");
 	        }*/
