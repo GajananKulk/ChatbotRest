@@ -16,7 +16,7 @@ public class Validate_Data_Excel
 		String balance="";
 		boolean matchFound = false;
 		boolean cf=false,of=false;
-		InputStream stream = Validate_Data_Excel.class.getResourceAsStream("/file/BankData.xls");
+		InputStream stream = Validate_Data_Excel.class.getResourceAsStream("/BankData.xls");
 
 		HSSFWorkbook wb = new HSSFWorkbook(stream);
 		HSSFSheet ws = wb.getSheetAt(0);
