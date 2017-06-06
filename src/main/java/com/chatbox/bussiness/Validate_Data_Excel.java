@@ -56,7 +56,7 @@ public class Validate_Data_Excel
 	            int cardnumber = Integer.valueOf((String) cardNumber);
 	            String otpNumber = cellToString(row.getCell(otpnumHeaderIndex));
 	            int otpnumber = Integer.valueOf((String) otpNumber);
-	            if(cardnumber==card_no)
+	            if(cardnumber==c_no)
 	            {
 			    cf=true;
 			    if(otpnumber==otp)
