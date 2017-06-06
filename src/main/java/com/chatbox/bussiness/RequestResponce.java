@@ -16,7 +16,7 @@ import com.chatbox.model.Parameters;
 import com.chatbox.model.Response_Mdl;
 import com.chatbox.model.Result;
 
-@Path("/balance")
+@Path("balance")
 public class RequestResponce {
 
 	@GET
@@ -26,7 +26,7 @@ public class RequestResponce {
 
 	}
 	
-@POST
+@POST 
 @Consumes(MediaType.APPLICATION_JSON)
 public Response getbal(String outputJSON) throws IOException{
 	System.out.println("Request recieved");
@@ -48,10 +48,9 @@ public Response getbal(String outputJSON) throws IOException{
 		String bal= v.getBalance(card_no,otp);
 		System.out.println("Current Balance:-"+bal);
 		Response_Mdl res=new Response_Mdl();
-		res.setSource("webhook");
+		res.setSource("policyWS");
 		String str1=""+bal;
 		res.setSpeech(str1);
-	        res.setDisplayText(str1);
 		ObjectMapper om=new ObjectMapper();
 		String str2=om.writeValueAsString(res);
 	return Response.status(200).entity(str2).header("Content-Type", "application/json").build();
