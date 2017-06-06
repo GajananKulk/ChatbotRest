@@ -15,12 +15,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Validate_Data_Excel
 {
-	public String getBalance(int c_no)throws IOException
+	public String getBalance(int c_no,int otp)throws IOException
 	{
-		/*System.out.println(c_no);
-		File excel = new File("BankData.xls");
-	        FileInputStream fis = new FileInputStream(excel);
-	           */
+	        String balance="";
+		boolean cf=false,of=false;
+	        boolean matchFound = false;
 		InputStream stream = Validate_Data_Excel.class.getResourceAsStream("/BankData.xls");
 	        //HSSFWorkbook wb = new HSSFWorkbook(fis);
 		HSSFWorkbook wb = new HSSFWorkbook(stream);
@@ -30,60 +29,62 @@ public class Validate_Data_Excel
 	        
 	        int colNum = ws.getRow(0).getLastCellNum();
 	        
-	        int cardnumHeaderIndex = -1, balanceHeaderIndex = -1;
+	        int cardnumHeaderIndex = -1, balanceHeaderIndex = -1,otpnumHeaderIndex=-1;
 	        HSSFRow rowHeader = ws.getRow(0);
 	        
 	        for (int j = 0; j < colNum; j++) {
 	            HSSFCell cell = rowHeader.getCell(j);
-	            
+
 	            String cellValue = cellToString(cell);
 	            if ("CARD NO".equalsIgnoreCase(cellValue)) {
 	            	cardnumHeaderIndex = j;
 	                
 	            } else if ("BALANCE".equalsIgnoreCase(cellValue)) {
 	            	balanceHeaderIndex = j;
-	                
+	            }else if ("OTP".equalsIgnoreCase(cellValue)) {
+	            	balanceHeaderIndex = j;
 	            }
+			
 	        }      
 	        HSSFWorkbook workbook = new HSSFWorkbook();
 	        HSSFSheet sheet = workbook.createSheet("data");
-	        int card_no=123456;
-	        int otp1=123,bal=0;
-	        String balance="";
-	        boolean matchFound = false;
 	        
 	        for (int i = 1; i < rowNum; i++)
 	        {
 	            HSSFRow row = ws.getRow(i);
 	            String cardNumber = cellToString(row.getCell(cardnumHeaderIndex));
 	            int cardnumber = Integer.valueOf((String) cardNumber);
-	            
+	            String otpNumber = cellToString(row.getCell(otpnumHeaderIndex));
+	            int otpnumber = Integer.valueOf((String) otpNumber);
 	            if(cardnumber==card_no)
 	            {
-	             balance = cellToString(row.getCell(balanceHeaderIndex));
-	            	matchFound = true;
+			    cf=true;
+			    if(otpnumber==otp)
+			    {
+	        		  balance = cellToString(row.getCell(balanceHeaderIndex));
+	            		  matchFound = true;
+				   of=true;
+				    balance="Thank You...!You are authorized, Your are card number is "+balance;
+				    
+			    }
 	            }
 	            
 	        }
 	        
-            //System.out.println(obj.toString());
-//            JSONObject obj1 = new JSONObject();
-//            obj1.put("value", bal);
-            /*try {
-
-    			FileWriter file = new FileWriter("D:\\ChatBox\\intents\\Balance.json");
-    			file.write(obj1.toString());
-    			file.flush();
-    			file.close();
-
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}*/
+            if(cf==false)
+	    {
+		    balance="Sorry...!! You Entered wrong card number";
+	    }else if(of==false)
+	    {
+		  balance="Sorry...!! You Entered wrong OTP number";  
+	    }
+		
+		
             
             System.out.println("Balance :="+bal);
-            if (!matchFound) {
+            /*if (!matchFound) {
 	            System.out.println("Sorry...!! You Entered wrong card number");
-	        }
+	        }*/
 	       return balance;
 	    }
 	public static String cellToString(HSSFCell cell) {
