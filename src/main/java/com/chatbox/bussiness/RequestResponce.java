@@ -40,15 +40,16 @@ public Response getbal(String outputJSON) throws IOException{
 		Result rs=apiAiResponse.getResult();
 		
 		System.out.println("rs :"+rs.toString());
-		//Parameters params=rs.getParameters();
+		Parameters params=rs.getParameters();
 		
 		Validate_Data_Excel v=new Validate_Data_Excel();
-		int card_no=123456;//Integer.valueOf((String)params.getCardNo());
-		String bal= v.getBalance(card_no);
+		int card_no=Integer.valueOf((String)params.getCardNo());
+		int otp=Integer.valueOf((String)params.getOtp());
+		String bal= v.getBalance(card_no,otp);
 		System.out.println("Current Balance:-"+bal);
 		Response_Mdl res=new Response_Mdl();
 		res.setSource("webhook");
-		String str1="Your Balance is "+bal;
+		String str1=""+bal;
 		res.setSpeech(str1);
 	        res.setDisplayText(str1);
 		ObjectMapper om=new ObjectMapper();
